@@ -1,6 +1,6 @@
 package com.springnpostgres.demo.entrypoint;
 
-import com.springnpostgres.demo.core.service.TestNameService;
+import com.springnpostgres.demo.core.service.TestNameServiceI;
 import com.springnpostgres.demo.model.entity.TestName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -19,7 +19,7 @@ import java.util.List;
 public class TestNameController {
 
     @Autowired
-    private TestNameService service;
+    private TestNameServiceI service;
 
     @GetMapping("/names")
     public ResponseEntity<List<TestName>> getAllTestNames(){

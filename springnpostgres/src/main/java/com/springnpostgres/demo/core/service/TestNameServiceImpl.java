@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TestNameService {
+public class TestNameServiceImpl implements TestNameServiceI {
 
     @Autowired
     private TestNameRepository testNameRepo;
