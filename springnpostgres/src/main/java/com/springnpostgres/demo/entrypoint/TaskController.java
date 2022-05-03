@@ -61,7 +61,8 @@ public class TaskController {
     ){
         try{
             Task task = repository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
-            task.setDescription(taskDto.getDescription());
+            if (taskDto.getTitle() != null ) task.setTitle(taskDto.getTitle());
+            if (taskDto.getDescription() != null ) task.setDescription(taskDto.getDescription());
             task.setTaskStatus(TaskStatus.valueOf(taskDto.getStatus()));
             repository.save(task);
             return new ResponseEntity( HttpStatus.OK );
@@ -105,9 +106,11 @@ public class TaskController {
     }
 
     @GetMapping("/tasks")
-    public ResponseEntity findAllTasks() {
-        List<Task> allTasks = new ArrayList<Task>();
-        repository.findAll().forEach(allTasks::add);
+    public ResponseEntity<List<TaskDto>> findAllTasks() {
+        List<TaskDto> allTasks = new ArrayList<TaskDto>();
+        repository.findAll().forEach( it ->
+                allTasks.add(it.toDto())
+        );
         return new ResponseEntity(
                 allTasks,
                 HttpStatus.OK
