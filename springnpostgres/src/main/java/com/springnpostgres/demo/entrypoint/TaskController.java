@@ -62,7 +62,6 @@ public class TaskController {
         try{
             Task task = repository.findById(id).orElseThrow(ChangeSetPersister.NotFoundException::new);
             task.setDescription(taskDto.getDescription());
-            task.setTitle(taskDto.getTitle());
             task.setTaskStatus(TaskStatus.valueOf(taskDto.getStatus()));
             repository.save(task);
             return new ResponseEntity( HttpStatus.OK );
